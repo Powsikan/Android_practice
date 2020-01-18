@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(new ArrayList<PersonInfo>(),mchecked);
+        mAdapter = new MyAdapter(new ArrayList<PersonInfo>());
         recyclerView.setAdapter(mAdapter);
 
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                String s = editText.getText().toString();
-               
+               mAdapter.addData(new PersonInfo(s,mchecked));
 
             }
         });

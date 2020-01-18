@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    public  List<PersonInfo> mDataset;
+    public  List<PersonInfo> mDataset;boolean mchecked;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -20,17 +20,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView textView;
+        public TextView textViewName;
+        public TextView textViewStatus;
 
         public MyViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.textviewName);
+            textViewName = v.findViewById(R.id.textviewName);
+            textViewStatus = v.findViewById(R.id.textviewStatus);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public MyAdapter(List<PersonInfo> myDataset) {
         mDataset = myDataset;
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -48,9 +51,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        PersonInfo personInfo = mDataset.get(position);
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mDataset.get(position));
+        holder.textViewName.setText(personInfo.getName());
+        if(personInfo.isStatus()){
+            holder.textViewStatus.setText("Online");
+        }else{
+            holder.textViewStatus.setText("Offline");
+
+        }
 
     }
 
@@ -60,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return mDataset.size();
     }
 
-    public void addName(PersonInfo personInfo){
+    public void addData(PersonInfo personInfo){
         mDataset.add(personInfo);
         notifyDataSetChanged();
 
